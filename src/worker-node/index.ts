@@ -29,7 +29,7 @@ export class NodeWorker implements IWorker {
         this._setUpListener()
 
         const cbSrc = this.stringifyCallback(cb)
-        this.postMessage({data: cbSrc})
+        this.postMessage({data: [cbSrc]})
     }
 
     /**
