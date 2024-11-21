@@ -22,7 +22,6 @@ export class Parallel implements IParallelImplement {
   };
   private startDataIndexCalculate = 0;
   private resultData: any[] = [];
-  private resultCallback: any;
   private deferred: any;
   private workerCreated = 0;
 
@@ -99,7 +98,7 @@ export class Parallel implements IParallelImplement {
 
         if (this.workerCreated === 0) {
           this._isRunningParallel = false;
-          this.deferred.resolve(this.resultCallback);
+          this.deferred.resolve(this.resultData);
         }
       }
     };
@@ -122,7 +121,7 @@ export class Parallel implements IParallelImplement {
       this.deferred.reject(err);
     };
     worker.postMessage({
-      data: this._dataExecute.data,
+      data: this._dataExecute.data[index],
       binding: this._dataExecute.binding,
     });
   }
