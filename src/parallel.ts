@@ -29,6 +29,12 @@ export class Parallel implements IParallelImplement {
     this._callbackParallel = cb;
   }
 
+  /**
+   * Binding data need execute parallel
+   * 
+   * @param data - data need mount to parallel
+   * @returns - return this Parallel instance
+   */
   public calculateData<T extends any[]>(data: T): IParallelImplement {
     if (!this._isRunningParallel) {
       this._dataExecute.data = data;
@@ -38,6 +44,12 @@ export class Parallel implements IParallelImplement {
     return this;
   }
 
+  /**
+   * Binding instance will be context this of hard work function
+   * 
+   * @param bindingInstance - binding instance. NOTE: Worker only execute raw data (so all function will be remove when binding)
+   * @returns - return this Parallel instance
+   */
   public bindingParallel(bindingInstance: any): IParallelImplement {
     if (!this._isRunningParallel) {
       this._dataExecute.binding = bindingInstance;
@@ -47,6 +59,11 @@ export class Parallel implements IParallelImplement {
     return this;
   }
 
+  /**
+   * Execute parallel from all data binding and hard work function
+   * 
+   * @returns - Promise to await data success or error
+   */
   public execute<T = any>(): Promise<T> {
     if (this._isRunningParallel) {
       const def: any = createDeferred();
@@ -74,6 +91,12 @@ export class Parallel implements IParallelImplement {
     return this.deferred.promise;
   }
 
+  /**
+   * Trigger calculate data from specific Worker enable
+   * 
+   * @param index - index data execute in worker
+   * @param worker - Worker usage
+   */
   private invokeWorker(index: number, worker?: IWorkerImplement): void {
     if (!worker) {
       this.workerCreated++;
@@ -85,6 +108,10 @@ export class Parallel implements IParallelImplement {
       if (this._isRunWorkerFail) {
         worker.terminate();
         this.workerCreated--;
+
+        if (this.workerCreated === 0) {
+            this._isRunningParallel = false;
+        }
         return;
       }
 
