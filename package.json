@@ -1,6 +1,6 @@
 {
   "name": "worker-parallel",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "dist/index.js",
   "types": "dist/types/index.d.ts",
   "files": ["dist", "README.md"],
@@ -9,6 +9,14 @@
   },
   "keywords": ["worker", "parallel"],
   "author": "phamthao2001 <sat.thu.thao2001@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/phamthao2001/worker-parallel"
+  },
+  "bugs": {
+    "url": "https://github.com/phamthao2001/worker-parallel/issues"
+  },
+  "homepage": "https://github.com/phamthao2001/worker-parallel#readme",
   "license": "ISC",
   "description": "allow calculate parallel with worker easier",
   "devDependencies": {
